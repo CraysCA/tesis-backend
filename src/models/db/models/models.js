@@ -1,11 +1,13 @@
 import connection from '../connection.js'
 import { DataTypes } from 'sequelize'
 
-import { userModel, fileModel } from './index.js'
+import { userModel, fileModel, productModel, invoiceModel } from './index.js'
 
 const models = {
 	user: userModel(connection, DataTypes),
 	file: fileModel(connection, DataTypes),
+	productModel: productModel(connection, DataTypes),
+	invoiceModel: invoiceModel(connection, DataTypes),
 }
 
 Object.keys(models).forEach(modelName => {

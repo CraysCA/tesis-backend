@@ -34,7 +34,6 @@ app.use(
 		tempFileDir: `${process.cwd()}/src/tmp/`,
 	}),
 )
-//comment
 
 app.use(routes)
 

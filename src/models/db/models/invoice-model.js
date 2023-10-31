@@ -1,34 +1,26 @@
 export default (sequelize, DataTypes) => {
-	const user = sequelize.define(
-		'user',
+	const invoice = sequelize.define(
+		'invoice',
 		{
 			id: {
 				type: DataTypes.INTEGER,
 				autoIncrement: true,
 				primaryKey: true,
 			},
-			name: {
-				type: DataTypes.STRING,
-			},
-			lastname: {
-				type: DataTypes.STRING,
-			},
-			email: {
-				type: DataTypes.STRING,
-				allowNull: false,
-				unique: true,
-			},
-			password: {
-				type: DataTypes.STRING,
-				allowNull: false,
-			},
-			customerId: {
-				type: DataTypes.INTEGER,
-				allowNull: true,
-			},
-			type: {
+			productId: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
+			},
+			userId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			amount: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+			},
+			status: {
+				type: DataTypes.STRING,
 			},
 		},
 		{
@@ -40,7 +32,7 @@ export default (sequelize, DataTypes) => {
 		},
 	)
 	// ! quitar luego
-	user.sync({ alter: true })
+	invoice.sync({ alter: true })
 
-	return user
+	return invoice
 }

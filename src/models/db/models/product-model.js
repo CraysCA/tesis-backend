@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
-	const user = sequelize.define(
-		'user',
+	const product = sequelize.define(
+		'product',
 		{
 			id: {
 				type: DataTypes.INTEGER,
@@ -10,24 +10,18 @@ export default (sequelize, DataTypes) => {
 			name: {
 				type: DataTypes.STRING,
 			},
-			lastname: {
+			description: {
 				type: DataTypes.STRING,
 			},
-			email: {
-				type: DataTypes.STRING,
-				allowNull: false,
-				unique: true,
-			},
-			password: {
-				type: DataTypes.STRING,
+			amount: {
+				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-			customerId: {
+			price: {
 				type: DataTypes.INTEGER,
-				allowNull: true,
 			},
-			type: {
-				type: DataTypes.INTEGER,
+			img: {
+				type: DataTypes.STRING,
 				allowNull: false,
 			},
 		},
@@ -40,7 +34,7 @@ export default (sequelize, DataTypes) => {
 		},
 	)
 	// ! quitar luego
-	user.sync({ alter: true })
+	product.sync({ alter: true })
 
-	return user
+	return product
 }
