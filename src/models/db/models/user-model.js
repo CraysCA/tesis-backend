@@ -34,7 +34,7 @@ export default (sequelize, DataTypes) => {
 		{
 			freezeTableName: true,
 			underscored: true,
-			timestamps: false,
+			timestamps: true,
 			paranoid: true,
 			hooks: {},
 		},

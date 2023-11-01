@@ -6,8 +6,8 @@ import { userModel, fileModel, productModel, invoiceModel } from './index.js'
 const models = {
 	user: userModel(connection, DataTypes),
 	file: fileModel(connection, DataTypes),
-	productModel: productModel(connection, DataTypes),
-	invoiceModel: invoiceModel(connection, DataTypes),
+	product: productModel(connection, DataTypes),
+	invoice: invoiceModel(connection, DataTypes),
 }
 
 Object.keys(models).forEach(modelName => {

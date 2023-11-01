@@ -1,4 +1,4 @@
-import { Create, Find, Update, Destroy } from '../uses-cases/users/index.js'
+import { Create, Find, Update, Destroy } from '../uses-cases/invoices/index.js'
 
 const createInvoice = async (request, response, next) => {
 	const { body: data } = request

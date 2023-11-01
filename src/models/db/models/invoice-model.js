@@ -26,13 +26,19 @@ export default (sequelize, DataTypes) => {
 		{
 			freezeTableName: true,
 			underscored: true,
-			timestamps: false,
+			timestamps: true,
 			paranoid: true,
 			hooks: {},
 		},
 	)
 	// ! quitar luego
-	invoice.sync({ alter: true })
+	//invoice.sync({ alter: true })
+
+	invoice.associate = models => {
+		invoice.belongsTo(models.product, {
+			foreignKey: 'productId',
+		})
+	}
 
 	return invoice
 }

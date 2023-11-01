@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
 				allowNull: false,
 			},
 			price: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.DOUBLE,
 			},
 			img: {
 				type: DataTypes.STRING,
@@ -28,13 +28,21 @@ export default (sequelize, DataTypes) => {
 		{
 			freezeTableName: true,
 			underscored: true,
-			timestamps: false,
+			timestamps: true,
 			paranoid: true,
 			hooks: {},
 		},
 	)
 	// ! quitar luego
-	product.sync({ alter: true })
+	//product.sync({ alter: true })
+
+	product.associate = models => {
+		product.hasMany(models.invoice, {
+			foreignKey: 'productId',
+			sourceKey: 'id',
+			as: 'product',
+		})
+	}
 
 	return product
 }
