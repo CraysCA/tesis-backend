@@ -8,11 +8,13 @@ import auth from './auth-routes.js'
 import files from './files-routes.js'
 import products from './products-routes.js'
 import invoices from './invoices-routes.js'
+import orders from './orders-routes.js'
 
 router.use('/users', authorization, users)
 router.use('/auth', auth)
 router.use('/files', files)
 router.use('/products', products)
 router.use('/invoices', invoices)
+router.use('/orders', orders)
 
 export default router

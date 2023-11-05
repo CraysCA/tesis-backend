@@ -3,6 +3,7 @@ import authController from './auth-controller.js'
 import filesController from './files-controller.js'
 import productsController from './products-controller.js'
 import invoicesController from './invoices-controller.js'
+import orderController from './order-controller.js'
 
 export {
 	usersController,
@@ -10,4 +11,5 @@ export {
 	filesController,
 	productsController,
 	invoicesController,
+	orderController,
 }

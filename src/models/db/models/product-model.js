@@ -3,8 +3,9 @@ export default (sequelize, DataTypes) => {
 		'product',
 		{
 			id: {
-				type: DataTypes.INTEGER,
-				autoIncrement: true,
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				allowNull: false,
 				primaryKey: true,
 			},
 			name: {
@@ -37,9 +38,12 @@ export default (sequelize, DataTypes) => {
 	//product.sync({ alter: true })
 
 	product.associate = models => {
-		product.hasMany(models.invoice, {
-			foreignKey: 'productId',
-			sourceKey: 'id',
+		// product.hasMany(models.order, {
+		// 	foreignKey: 'productId',
+		// })
+		product.belongsTo(models.order, {
+			foreignKey: 'id',
+			sourceKey: 'productId',
 			as: 'product',
 		})
 	}

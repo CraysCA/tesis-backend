@@ -7,15 +7,11 @@ export default (sequelize, DataTypes) => {
 				autoIncrement: true,
 				primaryKey: true,
 			},
-			productId: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
+			orderId: {
+				type: DataTypes.UUID,
+				//	allowNull: false,
 			},
 			userId: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-			},
-			amount: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
@@ -28,15 +24,18 @@ export default (sequelize, DataTypes) => {
 			underscored: true,
 			timestamps: true,
 			paranoid: true,
+			index: true,
 			hooks: {},
 		},
 	)
 	// ! quitar luego
-	//invoice.sync({ alter: true })
+	invoice.sync({ alter: true })
 
 	invoice.associate = models => {
-		invoice.belongsTo(models.product, {
-			foreignKey: 'productId',
+		invoice.hasMany(models.order, {
+			foreignKey: 'orderId',
+			sourceKey: 'orderId',
+			as: 'order',
 		})
 	}
 

@@ -1,7 +1,11 @@
 import { Op } from 'sequelize'
 import models from '../db/models/models.js'
 
-const { invoice: invoiceService, product: productService } = models
+const {
+	invoice: invoiceService,
+	product: productService,
+	order: orderService,
+} = models
 
 const create = async ({ data }) => {
 	try {
@@ -11,15 +15,38 @@ const create = async ({ data }) => {
 	}
 }
 
-const find = async ({ id }) => {
+const find = async ({ id, orderId }) => {
 	const conditions = { id: { [Op.not]: null } }
 	if (id) conditions.id = id
+	if (orderId) conditions.orderId = orderId
 
 	try {
 		return await invoiceService.findAll({
 			where: conditions,
-			attributes: { exclude: ['productId'] },
-			include: [{ model: productService, as: 'product' }],
+			attributes: { exclude: ['deletedAt'] },
+			include: [
+				{
+					model: orderService,
+					attributes: {
+						exclude: [
+							'id',
+							'orderId',
+							'productId',
+							'createdAt',
+							'updatedAt',
+							'deletedAt',
+						],
+					},
+					as: 'order',
+					include: {
+						model: productService,
+						attributes: {
+							exclude: ['createdAt', 'updatedAt', 'deletedAt'],
+						},
+						as: 'product',
+					},
+				},
+			],
 		})
 	} catch (error) {
 		throw new Error(error)
