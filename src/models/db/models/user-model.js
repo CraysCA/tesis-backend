@@ -22,10 +22,6 @@ export default (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
-			customerId: {
-				type: DataTypes.INTEGER,
-				allowNull: true,
-			},
 			type: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
