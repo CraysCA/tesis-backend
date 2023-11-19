@@ -1,6 +1,6 @@
-import Create from './create.js'
-import Find from './find.js'
-import Update from './update.js'
-import Destroy from './destroy.js'
+import CreateOrder from './create.js'
+import FindOrder from './find.js'
+import UpdateOrder from './update.js'
+import DestroyOrder from './destroy.js'
 
-export { Create, Find, Update, Destroy }
+export { CreateOrder, FindOrder, UpdateOrder, DestroyOrder }

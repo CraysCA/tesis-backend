@@ -8,7 +8,7 @@ router.post('/', invoicesController.createInvoice)
 
 router.get('/', invoicesController.findInvoice)
 
-router.put('/:id', invoicesController.updateInvoice)
+router.put('/:orderId', invoicesController.updateInvoice)
 
 router.delete('/:id', invoicesController.deleteInvoice)
 

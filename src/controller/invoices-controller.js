@@ -1,9 +1,37 @@
-import { Create, Find, Update, Destroy } from '../uses-cases/invoices/index.js'
+import {
+	CreateInvoice,
+	UpdateInvoice,
+	FindInvoice,
+	DestroyInvoice,
+} from '../uses-cases/invoices/index.js'
+
+import { CreateOrder } from '../uses-cases/order/index.js'
+
+import { FindProduct, UpdateProduct } from '../uses-cases/products/index.js'
 
 const createInvoice = async (request, response, next) => {
 	const { body: data } = request
 	try {
-		const invoice = await Create({ data })
+		const { products, orderId, userId, status } = data
+
+		products.map(async product => {
+			const { id } = product
+
+			const productExist = await FindProduct({ id })
+			if (productExist[0]?.dataValues) {
+				const productAmount = productExist[0].dataValues.amount
+				console.log(productExist[0].dataValues)
+				const newAmount = productAmount - product.quantity
+				if (newAmount >= 0) {
+					await UpdateProduct({ id, data: { amount: newAmount } })
+					await CreateOrder({
+						data: { orderId, productId: id, amount: product.quantity },
+					})
+				}
+			}
+		})
+
+		const invoice = await CreateInvoice({ data: { orderId, userId, status } })
 
 		if (invoice) {
 			response
@@ -20,9 +48,9 @@ const createInvoice = async (request, response, next) => {
 }
 
 const findInvoice = async (request, response, next) => {
-	const { id } = request.params
+	const { id, userId, orderId } = request.query
 	try {
-		const invoice = await Find({ id })
+		const invoice = await FindInvoice({ id, userId, orderId })
 		if (invoice)
 			response
 				.status(200)
@@ -34,9 +62,9 @@ const findInvoice = async (request, response, next) => {
 
 const updateInvoice = async (request, response, next) => {
 	const { body: data } = request
-	const { id } = request.params
+	const { orderId } = request.params
 	try {
-		const invoice = await Update({ id, data })
+		const invoice = await UpdateInvoice({ orderId, data })
 
 		if (invoice) {
 			response
@@ -52,7 +80,7 @@ const updateInvoice = async (request, response, next) => {
 const deleteInvoice = async (request, response, next) => {
 	const { id } = request.params
 	try {
-		const invoice = await Destroy({ id })
+		const invoice = await DestroyInvoice({ id })
 
 		if (invoice) {
 			response.status(200).json({ success: true, message: 'invoice deleted' })

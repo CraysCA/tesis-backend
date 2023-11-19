@@ -1,9 +1,14 @@
-import { Create, Find, Update, Destroy } from '../uses-cases/order/index.js'
+import {
+	CreateOrder,
+	FindOrder,
+	UpdateOrder,
+	DestroyOrder,
+} from '../uses-cases/order/index.js'
 
 const createOrder = async (request, response, next) => {
 	const { body: data } = request
 	try {
-		const order = await Create({ data })
+		const order = await CreateOrder({ data })
 
 		if (order) {
 			response
@@ -22,7 +27,7 @@ const createOrder = async (request, response, next) => {
 const findOrder = async (request, response, next) => {
 	const { id, orderId } = request.params
 	try {
-		const order = await Find({ id, orderId })
+		const order = await FindOrder({ id, orderId })
 		if (order)
 			response
 				.status(200)
@@ -36,7 +41,7 @@ const updateOrder = async (request, response, next) => {
 	const { body: data } = request
 	const { id } = request.params
 	try {
-		const order = await Update({ id, data })
+		const order = await UpdateOrder({ id, data })
 
 		if (order) {
 			response
@@ -52,7 +57,7 @@ const updateOrder = async (request, response, next) => {
 const deleteOrder = async (request, response, next) => {
 	const { id } = request.params
 	try {
-		const order = await Destroy({ id })
+		const order = await DestroyOrder({ id })
 
 		if (order) {
 			response.status(200).json({ success: true, message: 'order deleted' })

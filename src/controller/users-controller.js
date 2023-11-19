@@ -1,16 +1,21 @@
-import { Create, Find, Update, Destroy } from '../uses-cases/users/index.js'
+import {
+	CreateUser,
+	UpdateUser,
+	FindUser,
+	DestroyUser,
+} from '../uses-cases/users/index.js'
 
 const createUser = async (request, response, next) => {
 	const { body: data } = request
 	try {
 		const { email } = data
-		const userExist = await Find({ email })
+		const userExist = await FindUser({ email })
 		if (userExist.length > 0) {
 			response
 				.status(400)
 				.json({ success: false, message: 'the email already exist' })
 		} else {
-			const user = await Create({ data })
+			const user = await CreateUser({ data })
 
 			if (user) {
 				response
@@ -30,7 +35,7 @@ const createUser = async (request, response, next) => {
 const findUser = async (request, response, next) => {
 	const { id } = request.params
 	try {
-		const user = await Find({ id })
+		const user = await FindUser({ id })
 		if (user)
 			response
 				.status(200)
@@ -44,7 +49,7 @@ const updateUser = async (request, response, next) => {
 	const { body: data } = request
 	const { id } = request.params
 	try {
-		const user = await Update({ id, data })
+		const user = await UpdateUser({ id, data })
 
 		if (user) {
 			response
@@ -60,7 +65,7 @@ const updateUser = async (request, response, next) => {
 const deleteUser = async (request, response, next) => {
 	const { id } = request.params
 	try {
-		const user = await Destroy({ id })
+		const user = await DestroyUser({ id })
 
 		if (user) {
 			response.status(200).json({ success: true, message: 'user deleted' })

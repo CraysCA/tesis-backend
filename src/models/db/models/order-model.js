@@ -14,12 +14,9 @@ export default (sequelize, DataTypes) => {
 			},
 			productId: {
 				type: DataTypes.UUID,
-
-				allowNull: false,
 			},
 			amount: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
 			},
 		},
 		{

@@ -15,9 +15,11 @@ const create = async ({ data }) => {
 	}
 }
 
-const find = async ({ id, orderId }) => {
+const find = async ({ id, userId, orderId }) => {
+	console.log(id, userId, orderId)
 	const conditions = { id: { [Op.not]: null } }
 	if (id) conditions.id = id
+	if (userId) conditions.userId = userId
 	if (orderId) conditions.orderId = orderId
 
 	try {
@@ -53,10 +55,10 @@ const find = async ({ id, orderId }) => {
 	}
 }
 
-const update = async ({ id, data }) => {
+const update = async ({ orderId, data }) => {
 	try {
-		const invoice = await invoiceService.update(data, { where: { id } })
-		if (invoice[0]) return invoiceService.findOne({ where: { id } })
+		const invoice = await invoiceService.update(data, { where: { orderId } })
+		if (invoice[0]) return invoiceService.findOne({ where: { orderId } })
 	} catch (error) {
 		throw new Error(error)
 	}
