@@ -18,6 +18,9 @@ export default (sequelize, DataTypes) => {
 			status: {
 				type: DataTypes.STRING,
 			},
+			totalPrice: {
+				type: DataTypes.DOUBLE,
+			},
 		},
 		{
 			freezeTableName: true,
