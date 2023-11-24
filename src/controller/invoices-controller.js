@@ -12,7 +12,7 @@ import { FindProduct, UpdateProduct } from '../uses-cases/products/index.js'
 const createInvoice = async (request, response, next) => {
 	const { body: data } = request
 	try {
-		const { products, orderId, userId, status } = data
+		const { products, orderId, userId, status, totalPrice } = data
 
 		products.map(async product => {
 			const { id } = product
@@ -31,7 +31,9 @@ const createInvoice = async (request, response, next) => {
 			}
 		})
 
-		const invoice = await CreateInvoice({ data: { orderId, userId, status } })
+		const invoice = await CreateInvoice({
+			data: { orderId, userId, status, totalPrice },
+		})
 
 		if (invoice) {
 			response

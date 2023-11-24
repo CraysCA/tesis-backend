@@ -16,7 +16,6 @@ const create = async ({ data }) => {
 }
 
 const find = async ({ id, userId, orderId }) => {
-	console.log(id, userId, orderId)
 	const conditions = { id: { [Op.not]: null } }
 	if (id) conditions.id = id
 	if (userId) conditions.userId = userId
